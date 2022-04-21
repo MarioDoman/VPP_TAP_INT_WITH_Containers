@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 4.1.3 (Python 3.10.4 on win32)" generated="20220421 09:21:19.704" rpa="false" schemaversion="2">
+<suite id="s1" name="Start" source="C:\Users\Mario.Doman\Desktop\MY_PROJECTS\VPP_TAP_INT_WITH_Containers\start.robot">
+<test id="s1-t1" name="Ping docker1 from hostvm">
+<kw name="Run Process" library="Process">
+<var>${result}</var>
+<arg>vagrant ssh -c 'ping -c3 192.168.1.2'</arg>
+<arg>shell=True</arg>
+<arg>stdout=/log/ping_docker1.txt</arg>
+<doc>Runs a process and waits for it to complete.</doc>
+<msg timestamp="20220421 09:21:19.740" level="FAIL">FileNotFoundError: [Errno 2] No such file or directory: 'C:\\log\\ping_docker1.txt'</msg>
+<status status="FAIL" starttime="20220421 09:21:19.740" endtime="20220421 09:21:19.740"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${result.stdout}</arg>
+<arg>64 bytes from 192.168.1.2</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="NOT RUN" starttime="20220421 09:21:19.740" endtime="20220421 09:21:19.740"/>
+</kw>
+<status status="FAIL" starttime="20220421 09:21:19.734" endtime="20220421 09:21:19.741">FileNotFoundError: [Errno 2] No such file or directory: 'C:\\log\\ping_docker1.txt'</status>
+</test>
+<test id="s1-t2" name="Ping docker2 from hostvm">
+<kw name="Run Process" library="Process">
+<var>${result}</var>
+<arg>vagrant ssh -c 'ping -c3 192.168.3.2'</arg>
+<arg>shell=True</arg>
+<arg>stdout=log/ping_docker2.txt</arg>
+<doc>Runs a process and waits for it to complete.</doc>
+<msg timestamp="20220421 09:21:19.742" level="INFO">Starting process:
+vagrant ssh -c 'ping -c3 192.168.3.2'</msg>
+<msg timestamp="20220421 09:21:19.746" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20220421 09:21:23.721" level="INFO">Process completed.</msg>
+<msg timestamp="20220421 09:21:23.721" level="INFO">${result} = &lt;result object with rc 1&gt;</msg>
+<status status="PASS" starttime="20220421 09:21:19.742" endtime="20220421 09:21:23.721"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${result.stdout}</arg>
+<arg>64 bytes from 192.168.3.2</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<msg timestamp="20220421 09:21:23.724" level="FAIL">'' does not contain '64 bytes from 192.168.3.2'</msg>
+<status status="FAIL" starttime="20220421 09:21:23.721" endtime="20220421 09:21:23.724"/>
+</kw>
+<status status="FAIL" starttime="20220421 09:21:19.742" endtime="20220421 09:21:23.724">'' does not contain '64 bytes from 192.168.3.2'</status>
+</test>
+<test id="s1-t3" name="Ping from docker1 to hostvm">
+<kw name="Run Process" library="Process">
+<var>${result}</var>
+<arg>vagrant ssh -c 'sudo docker exec docker1 ping -c3 192.168.2.2'</arg>
+<arg>shell=True</arg>
+<arg>stdout=log/ping_from_docker1.txt</arg>
+<doc>Runs a process and waits for it to complete.</doc>
+<msg timestamp="20220421 09:21:23.725" level="INFO">Starting process:
+vagrant ssh -c 'sudo docker exec docker1 ping -c3 192.168.2.2'</msg>
+<msg timestamp="20220421 09:21:23.728" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20220421 09:21:27.465" level="INFO">Process completed.</msg>
+<msg timestamp="20220421 09:21:27.467" level="INFO">${result} = &lt;result object with rc 1&gt;</msg>
+<status status="PASS" starttime="20220421 09:21:23.725" endtime="20220421 09:21:27.467"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${result.stdout}</arg>
+<arg>64 bytes from 192.168.2.2</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<msg timestamp="20220421 09:21:27.468" level="FAIL">'' does not contain '64 bytes from 192.168.2.2'</msg>
+<status status="FAIL" starttime="20220421 09:21:27.467" endtime="20220421 09:21:27.468"/>
+</kw>
+<status status="FAIL" starttime="20220421 09:21:23.725" endtime="20220421 09:21:27.468">'' does not contain '64 bytes from 192.168.2.2'</status>
+</test>
+<test id="s1-t4" name="Ping from docker2 to hostvm">
+<kw name="Run Process" library="Process">
+<var>${result}</var>
+<arg>vagrant ssh -c 'sudo docker exec docker2 ping -c3 192.168.2.2'</arg>
+<arg>shell=True</arg>
+<arg>stdout=log/ping_from_docker2.txt</arg>
+<doc>Runs a process and waits for it to complete.</doc>
+<msg timestamp="20220421 09:21:27.470" level="INFO">Starting process:
+vagrant ssh -c 'sudo docker exec docker2 ping -c3 192.168.2.2'</msg>
+<msg timestamp="20220421 09:21:27.473" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20220421 09:21:31.235" level="INFO">Process completed.</msg>
+<msg timestamp="20220421 09:21:31.235" level="INFO">${result} = &lt;result object with rc 1&gt;</msg>
+<status status="PASS" starttime="20220421 09:21:27.469" endtime="20220421 09:21:31.235"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${result.stdout}</arg>
+<arg>64 bytes from 192.168.2.2</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<msg timestamp="20220421 09:21:31.236" level="FAIL">'' does not contain '64 bytes from 192.168.2.2'</msg>
+<status status="FAIL" starttime="20220421 09:21:31.235" endtime="20220421 09:21:31.236"/>
+</kw>
+<status status="FAIL" starttime="20220421 09:21:27.469" endtime="20220421 09:21:31.237">'' does not contain '64 bytes from 192.168.2.2'</status>
+</test>
+<test id="s1-t5" name="Iperf from hostvm to docker1">
+<kw name="Run Process" library="Process">
+<var>${result}</var>
+<arg>vagrant ssh -c 'sudo iperf -c 192.168.1.2'</arg>
+<arg>shell=True</arg>
+<arg>stdout=log/iperf_to_docker1.txt</arg>
+<doc>Runs a process and waits for it to complete.</doc>
+<msg timestamp="20220421 09:21:31.238" level="INFO">Starting process:
+vagrant ssh -c 'sudo iperf -c 192.168.1.2'</msg>
+<msg timestamp="20220421 09:21:31.241" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20220421 09:21:35.184" level="INFO">Process completed.</msg>
+<msg timestamp="20220421 09:21:35.184" level="INFO">${result} = &lt;result object with rc 1&gt;</msg>
+<status status="PASS" starttime="20220421 09:21:31.238" endtime="20220421 09:21:35.184"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${result.stdout}</arg>
+<arg>connected with 192.168.1.2 port 5001</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<msg timestamp="20220421 09:21:35.186" level="FAIL">'' does not contain 'connected with 192.168.1.2 port 5001'</msg>
+<status status="FAIL" starttime="20220421 09:21:35.184" endtime="20220421 09:21:35.186"/>
+</kw>
+<status status="FAIL" starttime="20220421 09:21:31.238" endtime="20220421 09:21:35.186">'' does not contain 'connected with 192.168.1.2 port 5001'</status>
+</test>
+<test id="s1-t6" name="Iperf from hostvm to docker2">
+<kw name="Run Process" library="Process">
+<var>${result}</var>
+<arg>vagrant ssh -c 'sudo iperf -c 192.168.3.2'</arg>
+<arg>shell=True</arg>
+<arg>stdout=log/iperf_to_docker2.txt</arg>
+<doc>Runs a process and waits for it to complete.</doc>
+<msg timestamp="20220421 09:21:35.187" level="INFO">Starting process:
+vagrant ssh -c 'sudo iperf -c 192.168.3.2'</msg>
+<msg timestamp="20220421 09:21:35.191" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20220421 09:21:38.944" level="INFO">Process completed.</msg>
+<msg timestamp="20220421 09:21:38.944" level="INFO">${result} = &lt;result object with rc 1&gt;</msg>
+<status status="PASS" starttime="20220421 09:21:35.187" endtime="20220421 09:21:38.944"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${result.stdout}</arg>
+<arg>connected with 192.168.3.2 port 5001</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<msg timestamp="20220421 09:21:38.944" level="FAIL">'' does not contain 'connected with 192.168.3.2 port 5001'</msg>
+<status status="FAIL" starttime="20220421 09:21:38.944" endtime="20220421 09:21:38.944"/>
+</kw>
+<status status="FAIL" starttime="20220421 09:21:35.187" endtime="20220421 09:21:38.948">'' does not contain 'connected with 192.168.3.2 port 5001'</status>
+</test>
+<test id="s1-t7" name="Iperf from docker1 to docker2">
+<kw name="Run Process" library="Process">
+<var>${result}</var>
+<arg>vagrant ssh -c 'sudo docker exec docker1 iperf -c 192.168.3.2'</arg>
+<arg>shell=True</arg>
+<arg>stdout=log/iperf_docker1_to_docker2.txt</arg>
+<doc>Runs a process and waits for it to complete.</doc>
+<msg timestamp="20220421 09:21:38.950" level="INFO">Starting process:
+vagrant ssh -c 'sudo docker exec docker1 iperf -c 192.168.3.2'</msg>
+<msg timestamp="20220421 09:21:38.952" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20220421 09:21:42.679" level="INFO">Process completed.</msg>
+<msg timestamp="20220421 09:21:42.679" level="INFO">${result} = &lt;result object with rc 1&gt;</msg>
+<status status="PASS" starttime="20220421 09:21:38.949" endtime="20220421 09:21:42.679"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${result.stdout}</arg>
+<arg>connected with 192.168.3.2 port 5001</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<msg timestamp="20220421 09:21:42.682" level="FAIL">'' does not contain 'connected with 192.168.3.2 port 5001'</msg>
+<status status="FAIL" starttime="20220421 09:21:42.679" endtime="20220421 09:21:42.682"/>
+</kw>
+<status status="FAIL" starttime="20220421 09:21:38.949" endtime="20220421 09:21:42.682">'' does not contain 'connected with 192.168.3.2 port 5001'</status>
+</test>
+<test id="s1-t8" name="Iperf from docker2 to docker1">
+<kw name="Run Process" library="Process">
+<var>${result}</var>
+<arg>vagrant ssh -c 'sudo docker exec docker2 iperf -c 192.168.1.2'</arg>
+<arg>shell=True</arg>
+<arg>stdout=log/iperf_docker2_to_docker1.txt</arg>
+<doc>Runs a process and waits for it to complete.</doc>
+<msg timestamp="20220421 09:21:42.684" level="INFO">Starting process:
+vagrant ssh -c 'sudo docker exec docker2 iperf -c 192.168.1.2'</msg>
+<msg timestamp="20220421 09:21:42.687" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20220421 09:21:46.592" level="INFO">Process completed.</msg>
+<msg timestamp="20220421 09:21:46.592" level="INFO">${result} = &lt;result object with rc 1&gt;</msg>
+<status status="PASS" starttime="20220421 09:21:42.683" endtime="20220421 09:21:46.592"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${result.stdout}</arg>
+<arg>connected with 192.168.1.2 port 5001</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<msg timestamp="20220421 09:21:46.595" level="FAIL">'' does not contain 'connected with 192.168.1.2 port 5001'</msg>
+<status status="FAIL" starttime="20220421 09:21:46.592" endtime="20220421 09:21:46.595"/>
+</kw>
+<status status="FAIL" starttime="20220421 09:21:42.683" endtime="20220421 09:21:46.595">'' does not contain 'connected with 192.168.1.2 port 5001'</status>
+</test>
+<test id="s1-t9" name="Iperf from docker1 to hostvm via tap interface">
+<kw name="Run Process" library="Process">
+<var>${result}</var>
+<arg>vagrant ssh -c 'sudo docker exec docker1 iperf -c 192.168.2.2'</arg>
+<arg>shell=True</arg>
+<arg>stdout=log/iperf_docker1_to_hostvm_tap.txt</arg>
+<doc>Runs a process and waits for it to complete.</doc>
+<msg timestamp="20220421 09:21:46.597" level="INFO">Starting process:
+vagrant ssh -c 'sudo docker exec docker1 iperf -c 192.168.2.2'</msg>
+<msg timestamp="20220421 09:21:46.600" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20220421 09:21:50.436" level="INFO">Process completed.</msg>
+<msg timestamp="20220421 09:21:50.436" level="INFO">${result} = &lt;result object with rc 1&gt;</msg>
+<status status="PASS" starttime="20220421 09:21:46.596" endtime="20220421 09:21:50.436"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${result.stdout}</arg>
+<arg>connected with 192.168.2.2 port 5001</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<msg timestamp="20220421 09:21:50.437" level="FAIL">'' does not contain 'connected with 192.168.2.2 port 5001'</msg>
+<status status="FAIL" starttime="20220421 09:21:50.437" endtime="20220421 09:21:50.437"/>
+</kw>
+<status status="FAIL" starttime="20220421 09:21:46.596" endtime="20220421 09:21:50.438">'' does not contain 'connected with 192.168.2.2 port 5001'</status>
+</test>
+<test id="s1-t10" name="Iperf from docker2 to hostvm via tap interface">
+<kw name="Run Process" library="Process">
+<var>${result}</var>
+<arg>vagrant ssh -c 'sudo docker exec docker2 iperf -c 192.168.2.2'</arg>
+<arg>shell=True</arg>
+<arg>stdout=log/iperf_docker2_to_hostvm_tap.txt</arg>
+<doc>Runs a process and waits for it to complete.</doc>
+<msg timestamp="20220421 09:21:50.440" level="INFO">Starting process:
+vagrant ssh -c 'sudo docker exec docker2 iperf -c 192.168.2.2'</msg>
+<msg timestamp="20220421 09:21:50.442" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20220421 09:21:54.312" level="INFO">Process completed.</msg>
+<msg timestamp="20220421 09:21:54.312" level="INFO">${result} = &lt;result object with rc 1&gt;</msg>
+<status status="PASS" starttime="20220421 09:21:50.439" endtime="20220421 09:21:54.312"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${result.stdout}</arg>
+<arg>connected with 192.168.2.2 port 5001</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<msg timestamp="20220421 09:21:54.312" level="FAIL">'' does not contain 'connected with 192.168.2.2 port 5001'</msg>
+<status status="FAIL" starttime="20220421 09:21:54.312" endtime="20220421 09:21:54.312"/>
+</kw>
+<status status="FAIL" starttime="20220421 09:21:50.439" endtime="20220421 09:21:54.315">'' does not contain 'connected with 192.168.2.2 port 5001'</status>
+</test>
+<test id="s1-t11" name="Destroy Vagrant VMs and check shutdown message">
+<kw name="Run Process" library="Process">
+<var>${result}</var>
+<arg>vagrant destroy -f</arg>
+<arg>shell=True</arg>
+<arg>stdout=log/vm_shutdown_log.txt</arg>
+<doc>Runs a process and waits for it to complete.</doc>
+<msg timestamp="20220421 09:21:54.316" level="INFO">Starting process:
+vagrant destroy -f</msg>
+<msg timestamp="20220421 09:21:54.319" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20220421 09:21:58.196" level="INFO">Process completed.</msg>
+<msg timestamp="20220421 09:21:58.196" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
+<status status="PASS" starttime="20220421 09:21:54.316" endtime="20220421 09:21:58.196"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${result.stdout}</arg>
+<arg>Destroying VM and associated drives...</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<msg timestamp="20220421 09:21:58.202" level="FAIL">'==&gt; vagrant: VM not created. Moving on...' does not contain 'Destroying VM and associated drives...'</msg>
+<status status="FAIL" starttime="20220421 09:21:58.196" endtime="20220421 09:21:58.202"/>
+</kw>
+<status status="FAIL" starttime="20220421 09:21:54.316" endtime="20220421 09:21:58.203">'==&gt; vagrant: VM not created. Moving on...' does not contain 'Destroying VM and associated drives...'</status>
+</test>
+<status status="FAIL" starttime="20220421 09:21:19.704" endtime="20220421 09:21:58.203"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="11" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="11" skip="0" id="s1" name="Start">Start</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
