@@ -8,5 +8,8 @@ Vagrant.configure("2") do |config|
     subconfig.vm.box = BOX_IMAGE
     subconfig.vm.hostname = "vagrant"
     subconfig.vm.provision "shell", path: "script.sh", run: 'always'
+    subconfig.vm.provision "file", source: "tests_unittest.py", destination: "tests_unittest.py"
+    subconfig.vm.provision "file", source: "tests_lib.py", destination: "tests_lib.py"
+    subconfig.vm.provision :shell, :inline => "python tests_unittest.py"
   end
 end
