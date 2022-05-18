@@ -6,32 +6,20 @@ if [ $USER != "root" ] ; then
     exit
 fi
 
-dockerrmf () {
-	#Cleanup all containers on the host (dead or alive).
-	docker kill `docker ps --no-trunc -aq` ; docker rm `docker ps --no-trunc -aq`
-}
+sudo apt-get update
+curl -s https://packagecloud.io/install/repositories/fdio/release/script.deb.sh | sudo bash
+sudo apt-get update
+sudo apt-get -y install vpp vpp-plugin-core vpp-plugin-dpdk iperf apt-transport-https ca-certificates curl software-properties-common
 
-#Vagrant build box initial setup
-if [ -a /etc/apt/sources.list.d/docker.list ]
-        then
-            echo "Docker APT Sources already configured. Not setting up Docker on this Vagrant Box"
-						echo "Cleaning up containers from previous run..."
-						dockerrmf
-        else
-            mkdir /var/run/netns
-            sudo apt-get update
-            sudo apt-get -y install ca-certificates curl gnupg lsb-release
-            echo "deb [trusted=yes] https://packagecloud.io/fdio/release/ubuntu bionic main" | sudo tee /etc/apt/sources.list.d/99fd.io.list
-            sudo curl -L https://packagecloud.io/fdio/release/gpgkey | sudo apt-key add -
-            curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-            echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-            sudo apt-get update
-            sudo apt-get -y install docker-ce docker-ce-cli containerd.io vpp vpp-plugin-core vpp-plugin-dpdk python3-vpp-api vpp-dbg vpp-dev vpp-ext-deps iperf
-fi
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu  $(lsb_release -cs)  stable"
+sudo apt update
+sudo apt-get -y install docker-ce
 
-echo "Remove old netns simlink"
-sudo rm -Rf /var/run/netns
 sudo mkdir /var/run/netns
+
+# logs for unittest outputs
+sudo mkdir logs
 
 # veth pair for docker1
 sudo ip link add veth10 type veth peer name veth11
@@ -98,22 +86,10 @@ ip route add 192.168.3.0/24 via 192.168.2.1
 # Start iperf server on hostvm
 iperf -sDB 192.168.2.2
 
-#TEST!
-echo "Pinging container1 via host > TAP-VPP > Container1"
-ping -c3 192.168.1.2
-
-echo "Pinging container2 via host > TAP-VPP > Container2"
-ping -c3 192.168.3.2
-
 sudo docker exec docker1 apt update
 sudo docker exec docker1 apt -y install iputils-ping net-tools iperf
-echo "Ping from container1 via container > VPP-TAP > Host"
-docker exec docker1 ping -c3 192.168.2.2
 docker exec docker1 iperf -s -D
+
 sudo docker exec docker2 apt update
 sudo docker exec docker2 apt -y install iputils-ping net-tools iperf
-echo "Ping from container2 via container > VPP-TAP > Host"
-docker exec docker2 ping -c3 192.168.2.2
 docker exec docker2 iperf -s -D
-echo "Ping from Container1 to Container2 via VPP"
-docker exec docker1 ping -c3 192.168.3.2

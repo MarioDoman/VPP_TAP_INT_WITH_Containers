@@ -1,7 +1,0 @@
-------------------------------------------------------------
-Client connecting to 192.168.2.2, TCP port 5001
-TCP window size: 85.0 KByte (default)
-------------------------------------------------------------
-[  3] local 192.168.3.2 port 52250 connected with 192.168.2.2 port 5001
-[ ID] Interval       Transfer     Bandwidth
-[  3]  0.0-10.2 sec   107 KBytes  86.7 Kbits/sec
