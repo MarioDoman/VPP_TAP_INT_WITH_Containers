@@ -9,7 +9,7 @@ fi
 sudo apt-get update
 curl -s https://packagecloud.io/install/repositories/fdio/release/script.deb.sh | sudo bash
 sudo apt-get update
-sudo apt-get -y install vpp vpp-plugin-core vpp-plugin-dpdk iperf apt-transport-https ca-certificates curl software-properties-common
+sudo apt-get -y install vpp vpp-plugin-core vpp-plugin-dpdk iperf apt-transport-https ca-certificates curl software-properties-common net-tools
 
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu  $(lsb_release -cs)  stable"
@@ -93,3 +93,9 @@ docker exec docker1 iperf -s -D
 sudo docker exec docker2 apt update
 sudo docker exec docker2 apt -y install iputils-ping net-tools iperf
 docker exec docker2 iperf -s -D
+
+# start trex on docker1
+# sudo docker exec docker1 apt -y install git python3 wget python3-distutils pciutils iproute2
+# sudo docker exec docker1 mkdir -p /opt/trex
+# sudo docker exec --workdir /opt/trex docker1 wget --no-cache https://trex-tgn.cisco.com/trex/release/latest --no-check-certificate
+# sudo docker exec --workdir /opt/trex docker1 tar -xzvf latest
